@@ -1,31 +1,47 @@
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
+_G.ESP = true
+_G.ESPColor = Color3.fromRGB(255, 255, 255)
 
-local function createESP(character)
-    local highlight = Instance.new("Highlight")
-    highlight.Adornee = character
-    highlight.FillColor = Color3.new(255, 255, 255) -- 	Colour Of Esp
-    highlight.FillTransparency = 0 -- Transparency level
-    highlight.OutlineColor = Color3.new(1, 1, 1) -- Outline Of Esp
-    highlight.OutlineTransparency = 1 -- Transparency Of Esp
-    highlight.Parent = character
-end
+pcall(
+    function()
+        local highlight = Instance.new("Highlight")
 
-local function handlePlayer(player)
-    player.CharacterAdded:Connect(function(character)
-        createESP(character)
-    end)
+        game:GetService("RunService").RenderStepped:Connect(
+            function()
+                for _, v in pairs(game.Players:GetPlayers()) do
+                    if not v.Character:FindFirstChild("Highlight") then
+                        highlight.FillTransparency = 1
+                        highlight:Clone().Parent = v.Character
+                        highlight.OutlineColor = Color3.fromRGB(0, 0, 0)
+                    end
 
-    -- Create ESP for the player's current character if it exists
-    if player.Character then
-        createESP(player.Character)
+                    game.Players.PlayerAdded:Connect(
+                        function(plr)
+                            plr.CharacterAdded:Connect(
+                                function(char)
+                                    if not char:FindFirstChild("Highlight") then
+                                        highlight.FillTransparency = 1
+                                        highlight:Clone().Parent = char
+                                        highlight.OutlineColor = Color3.fromRGB(0, 0, 0)
+                                    end
+                                end
+                            )
+                        end
+                    )
+                end
+
+                for _, v in pairs(game.Players:GetPlayers()) do
+                    local hl = v.Character:FindFirstChild("Highlight")
+                    hl.Enabled = _G.ESP
+                    hl.OutlineColor = _G.ESPColor
+                end
+            end
+        )
     end
-end
-
--- Connect to new players joining the game
-Players.PlayerAdded:Connect(handlePlayer)
-
--- Handle existing players
-for _, player in ipairs(Players:GetPlayers()) do
-    handlePlayer(player)
+)
+local function API_Check()
+    if Drawing == nil then
+        return "No"
+    else
+        return "Yes"
+    end
 end
