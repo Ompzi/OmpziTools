@@ -38,10 +38,3 @@ pcall(
         )
     end
 )
-local function API_Check()
-    if Drawing == nil then
-        return "No"
-    else
-        return "Yes"
-    end
-end
