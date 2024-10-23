@@ -2,6 +2,12 @@
 _G.ESP = true
 _G.ESPColor = Color3.fromRGB(255, 255, 255)
 
+StarterGui:SetCore("SendNotification", {
+    Title = "Universal ESP";
+    Text = "Made By OmpziTools";
+    Duration = 5;
+})
+
 pcall(
     function()
         local highlight = Instance.new("Highlight")
