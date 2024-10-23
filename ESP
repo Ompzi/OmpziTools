@@ -2,6 +2,8 @@
 _G.ESP = true
 _G.ESPColor = Color3.fromRGB(255, 255, 255)
 
+local StarterGui = game:GetService("StarterGui")
+
 StarterGui:SetCore("SendNotification", {
     Title = "Universal ESP";
     Text = "Made By OmpziTools";
