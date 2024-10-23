@@ -1,0 +1,56 @@
+-- Fly Script
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local flying = false
+local speed = 50 -- Adjust the flying speed as needed
+
+-- Create a BodyVelocity to control flying
+local bodyVelocity = Instance.new("BodyVelocity")
+bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+bodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000) -- Adjust max force if needed
+
+local function toggleFly()
+    flying = not flying
+    
+    if flying then
+        bodyVelocity.Parent = character.HumanoidRootPart
+        humanoid.PlatformStand = true -- Prevents falling
+    else
+        bodyVelocity.Parent = nil
+        humanoid.PlatformStand = false
+    end
+end
+
+-- Handle the key press for toggling fly
+local function onInputBegan(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.E then
+        toggleFly()
+    end
+end
+
+-- Update flying mechanics
+game:GetService("RunService").RenderStepped:Connect(function()
+    if flying then
+        local moveDirection = Vector3.new(0, 0, 0)
+        
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) then
+            moveDirection = moveDirection + character.HumanoidRootPart.CFrame.LookVector
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.S) then
+            moveDirection = moveDirection - character.HumanoidRootPart.CFrame.LookVector
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) then
+            moveDirection = moveDirection - character.HumanoidRootPart.CFrame.RightVector
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) then
+            moveDirection = moveDirection + character.HumanoidRootPart.CFrame.RightVector
+        end
+
+        -- Update the BodyVelocity
+        bodyVelocity.Velocity = moveDirection * speed + Vector3.new(0, 20, 0) -- Add upward force
+    end
+end)
+
+-- Connect input events
+game:GetService("UserInputService").InputBegan:Connect(onInputBegan)
