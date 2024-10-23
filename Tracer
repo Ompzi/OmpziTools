@@ -1,3 +1,11 @@
+local StarterGui = game:GetService("StarterGui")
+
+StarterGui:SetCore("SendNotification", {
+    Title = "Universal ESP";
+    Text = "Made By OmpziTools";
+    Duration = 5;
+})
+
 local function API_Check()
     if Drawing == nil then
         return "No"
