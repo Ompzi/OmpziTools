@@ -1,7 +1,7 @@
 local StarterGui = game:GetService("StarterGui")
 
 StarterGui:SetCore("SendNotification", {
-    Title = "Universal Tracers";
+    Title = "Tracer ESP Injected";
     Text = "Made By OmpziTools";
     Duration = 5;
 })
