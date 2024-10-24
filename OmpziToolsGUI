@@ -45,9 +45,6 @@ if _G.infinJumpStarted == nil then
 	--Ensures this only runs once to save resources
 	_G.infinJumpStarted = true
 	
-	--Notifies readiness
-	game.StarterGui:SetCore("SendNotification", {Title="Youtube Hub"; Text="Infinite Jump Activated!"; Duration=5;})
-
 	--The actual infinite jump
 	local plr = game:GetService('Players').LocalPlayer
 	local m = plr:GetMouse()
@@ -124,9 +121,9 @@ local Button3 = TPTab:CreateButton({
 })
 
 local Button4 = TPTab:CreateButton({
-   Name = "E To Fly",
+   Name = "",
    Callback = function()
-        loadstring(game:HttpGet(("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/fly")))()
+        
    end,
 })
 
