@@ -6,8 +6,8 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "Enjoy The Script And Try Not To Get Banned :P",
    ConfigurationSaving = {
       Enabled = false,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Example Hub"
+      FolderName = OmpziTools, -- Create a custom folder for your hub/game
+      FileName = "OmpziTools"
    },
    Discord = {
       Enabled = true,
@@ -19,7 +19,7 @@ local Window = Rayfield:CreateWindow({
       Title = "Key System",
       Subtitle = "Join Our Discord To Get A Key!",
       Note = "Fuck Off You Spud",
-      FileName = "File Name", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      FileName = "OmpziTools", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
       GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
       Key = {"https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/keys"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
@@ -31,8 +31,8 @@ local MainSection = MainTab:CreateSection("Main")
 
 Rayfield:Notify({
    Title = "Full Gui Injected",
-   Content = "",
-   Duration = 5,
+   Content = "Have Fun And Try Not To Get Banned",
+   Duration = 2,
 })
 
 local Button = MainTab:CreateToggle({
