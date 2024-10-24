@@ -33,12 +33,6 @@ Rayfield:Notify({
    Title = "Full Gui Injected",
    Content = "",
    Duration = 5,
-   Image = 13047715178,
-   Actions = { -- Notification Buttons
-      Ignore = {
-         Name = "Okay!",
-         Callback = function()
-         print("The user tapped Okay!")
       end
    },
 },
