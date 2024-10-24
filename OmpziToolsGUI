@@ -33,9 +33,6 @@ Rayfield:Notify({
    Title = "Full Gui Injected",
    Content = "",
    Duration = 5,
-      end
-   },
-},
 })
 
 local Button = MainTab:CreateToggle({
