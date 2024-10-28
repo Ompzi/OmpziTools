@@ -120,14 +120,4 @@ local Button3 = TPTab:CreateButton({
    end,
 })
 
-local 2Tab = Window:CreateTab(" 1", nil) -- Title, Image
-
-local Button1 = 2Tab:CreateButton({
-   Name = "Name",
-   Callback = function()
-        loadstring(game:HttpGet(("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/ESP")))()
-   end,
-})
-
-
 local Button1 = TP
