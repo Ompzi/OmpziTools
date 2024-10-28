@@ -121,4 +121,3 @@ local Button3 = TPTab:CreateButton({
 })
 
 local Button1 = TP
-Rayfield:LoadConfiguration()
