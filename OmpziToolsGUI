@@ -120,25 +120,25 @@ local Button3 = TPTab:CreateButton({
    end,
 })
 
-local TPTab = Window:CreateTab(" Admin", nil) -- Title, Image
+local AdminTab = Window:CreateTab(" Admin", nil) -- Title, Image
 
-local Button1 = TPTab:CreateButton({
+local Button1 = AdminTab:CreateButton({
    Name = "Nameless Admin",
    Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/namelessadmin"))()
    end,
 })
 
-local Button2 = TPTab:CreateButton({
+local Button2 = AdminTab:CreateButton({
    Name = "Inf Yield",
    Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/InfYield"))()
    end,
 })
 
-local TPTab = Window:CreateTab(" Other GUI'S", nil) -- Title, Image
+local AdminTab = Window:CreateTab(" Other GUI'S", nil) -- Title, Image
 
-local Button1 = TPTab:CreateButton({
+local Button1 = AdminTab:CreateButton({
    Name = "GUI Name",
    Callback = function()
 	-
