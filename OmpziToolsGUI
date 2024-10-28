@@ -86,7 +86,7 @@ local Slider = MainTab:CreateSlider({
    end,
 })
 
-local OtherSection = MainTab:CreateSection("Other")
+local OtherSection = MainTab:CreateSection("Fuck Off")
 
 local Toggle = MainTab:CreateToggle({
    Name = "Empty",
