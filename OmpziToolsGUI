@@ -32,7 +32,7 @@ local MainSection = MainTab:CreateSection("Main")
 Rayfield:Notify({
    Title = "Full Gui Injected",
    Content = "Have Fun And Try Not To Get Banned",
-   Duration = 2,
+   Duration = 3,
 })
 
 local Button = MainTab:CreateToggle({
@@ -97,7 +97,7 @@ local Toggle = MainTab:CreateToggle({
    end,
 })
 
-local TPTab = Window:CreateTab(" Universal", nil) -- Title, Image
+local TPTab = Window:CreateTab(" Aimbot / ESP", nil) -- Title, Image
 
 local Button1 = TPTab:CreateButton({
    Name = "ESP",
@@ -120,13 +120,29 @@ local Button3 = TPTab:CreateButton({
    end,
 })
 
-local Button4 = TPTab:CreateButton({
-   Name = "",
+local TPTab = Window:CreateTab(" Admin", nil) -- Title, Image
+
+local Button1 = TPTab:CreateButton({
+   Name = "Nameless Admin",
    Callback = function()
-        
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/namelessadmin"))()
    end,
 })
 
-local TPTab = Window:CreateTab(" Misc", nil) -- Title, Image
+local Button2 = TPTab:CreateButton({
+   Name = "Inf Yield",
+   Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/InfYield"))()
+   end,
+})
+
+local TPTab = Window:CreateTab(" Other GUI'S", nil) -- Title, Image
+
+local Button1 = TPTab:CreateButton({
+   Name = "GUI Name",
+   Callback = function()
+	-
+   end,
+})
 
 local Button1 = TP
