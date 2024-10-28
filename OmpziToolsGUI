@@ -86,6 +86,9 @@ local Slider = MainTab:CreateSlider({
    end,
 })
 
+
+local Section = Tab:CreateSection("Section Example")
 local Tab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image
+Section:Set("Section Example")
 
 local Button1 = TP
