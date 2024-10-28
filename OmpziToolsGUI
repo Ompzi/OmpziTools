@@ -86,9 +86,12 @@ local Slider = MainTab:CreateSlider({
    end,
 })
 
-
-local Section = Tab:CreateSection("Section Example")
 local Tab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image
-Section:Set("Section Example")
+
+local Button = MainTab:CreateToggle({
+   Name = "Infinite Jump",
+   Callback = function()
+       --Toggles the infinite jump between on or off on every script run
 
 local Button1 = TP
+Rayfield:LoadConfiguration()
