@@ -86,6 +86,17 @@ local Slider = MainTab:CreateSlider({
    end,
 })
 
+local OtherSection = MainTab:CreateSection("Other")
+
+local Toggle = MainTab:CreateToggle({
+   Name = "Empty",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        print("empty")
+   end,
+})
+
 local TPTab = Window:CreateTab(" Aimbot / ESP", nil) -- Title, Image
 
 local Button1 = TPTab:CreateButton({
