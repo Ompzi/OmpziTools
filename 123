@@ -9,72 +9,257 @@ local plr = players.LocalPlayer
 local camera = workspace.CurrentCamera
 local mouse = plr:GetMouse()
 
---> [< Variables >] <--
+--> Key / Discord <--
 
-local hue = 0
-local rainbowFov = false
-local rainbowSpeed = 0.005
-
-local aimFov = 100
-local aiming = false
-local predictionStrength = 0.065
-
-local gmEnabled = false
-
-local fireRate = 0.3
-local pelletAmount = 1
-local reloadTime = 0
-local damageDropOff = 0
-local isAuto = true
-local delayedShell = false
-local recoilEnabled = false
-local Recoil = Vector3.new(0, 0, 0)
-local viewmodelEnabled = false
-local viewModelOffset = Vector3.new(0.1, -1.7, 0)
-
-local hitEffectEnabled = false
-local aimbotEnabled = false
-
-local hitEffect = "Gib_F"
-
-local e = false
-
---> [< Variables >] <--
 
 local Window = Rayfield:CreateWindow({
-	Name = "▶ Gun Grounds FFA ◀",
-	LoadingTitle = "Loading...",
-	LoadingSubtitle = "by Agreed 🥵",
+	Name = "▶ OmpziTools Hub ◀",
+	LoadingTitle = "Loading.  .  .  .  .",
+	LoadingSubtitle = "DONT GET BANNED",
 	ConfigurationSaving = {
 		Enabled = true,
-		FolderName = "GunGroundsFFA",
-		FileName = "byAgreed"
+		FolderName = "OmpziHub",
+		FileName = "ByOmpziTools"
 	},
 })
 
-local Main = Window:CreateTab("Main")
-local Aimbot = Window:CreateTab("FFA")
-local ViewModel = Window:CreateTab("WIP")
+--> Tab Maker <--
 
---> [< Gun Mods >] <--
+local First = Window:CreateTab("1")
+local Second = Window:CreateTab("FFA")
+local Third = Window:CreateTab("3")
 
-local Main = Main:CreateToggle({
-    Name = "Main Name Here",
+--> Tab Maker <--
+
+--> 1st Tab <--
+
+local infjump = First:CreateToggle({
+ Name = "Infinite Jump",
+   Callback = function()
+       --Toggles the infinite jump between on or off on every script run
+_G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end
+   end,
+})
+
+local Slider = First:CreateSlider({
+   Name = "Walk Speed",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderws", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+   end,
+})
+
+local Slider = First:CreateSlider({
+   Name = "Jump Power",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderjp", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
+   end,
+})
+
+--> 1st Tab <--
+
+--> 2nd Tab <--
+
+local aimbot = Second:CreateButton({
+    Name = "Aimbot",
+   Callback = function()
+       loadstring(game:HttpGet(("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/Aimbot")))()
+       end,
+})
+
+local ESP = Second:CreateButton({
+    Name = "ESP",
+   Callback = function()
+       loadstring(game:HttpGet(("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/ESP")))()
+       end,
+})
+
+local Tracers = Second:CreateButton({
+    Name = "Tracers",
+   Callback = function()
+       loadstring(game:HttpGet(("https://raw.githubusercontent.com/Ompzi/OmpziTools/refs/heads/main/Tracer")))()
+       end,
+})
+
+local gunmods = Second:CreateToggle({
+    Name = "Gun Mods Enabled",
     CurrentValue = false,
-    Flag = "Flag Test Here",
+    Flag = "GunModsEnabled",
     Callback = function(Value)
         gmEnabled = Value
         if Value then
             Rayfield:Notify({
-                Title = "Title Test",
-                Content = Content Test",
+                Title = "Gun Mod",
+                Content = "Reset to enable!",
                 Duration = 1,
                 Image = 4483362458,
+            })
+        else
+            Rayfield:Notify({
+                Title = "Gun Mod",
+                Content = "Reset to disable!",
+                Duration = 1,
+                Image = 4483362458,
+            })
+        end
+        while gmEnabled do
+            if plr.Character then
+                local folder = plr.Character:FindFirstChildWhichIsA("Tool")
+                
+                if folder and folder:FindFirstChild("Configuration") then
+                    for _, v in ipairs(folder.Configuration:GetChildren()) do
+                        if v.Name == "FireRate" and not e then
+                            e = true
+                            v.Value = v.Value * fireRate
+                        end
+                        if v.Name == "reloadTime" then
+                            v.Value = reloadTime
+                        end
+                        if v.Name == "DamageDropoff" then
+                            v.Value = damageDropOff
+                        end
+                        if v.Name == "isAuto" then
+                            v.Value = isAuto
+                        end
+                        if v.Name == "DelayedShell" then
+                            v.Value = delayedShell
+                        end
+                        if v.Name == "Recoil" then
+                            if recoilEnabled then
+                                v.Value = Recoil
+                            end
+                        end
+                    end
+                    if hitEffectEnabled then
+                        local heffect = folder.Configuration:FindFirstChild("HitEffect")
+                        if heffect then
+                            heffect.Value = hitEffect
+                        else
+                            heffect = Instance.new("StringValue")
+                            heffect.Name = "HitEffect"
+                            heffect.Value = hitEffect
+                            heffect.Parent = folder.Configuration
+                        end
+                    end
+                else
+                    e = false
+                end
+            end
+            wait()
+        end 
+    end
+})
+
+local firerate = Second:CreateSlider({
+	Name = "Fire Rate",
+	Range = {0, 1},
+	Increment = 0.1,
+	CurrentValue = 0.3,
+	Flag = "FireRate",
+	Callback = function(Value)
+        fireRate = Value
+        Rayfield:Notify({
+            Title = "Fire Rate",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
         })
 	end,
 })
 
---> [< Aimbot >] <--
+local reloadtime = Second:CreateSlider({
+	Name = "Reload Time",
+	Range = {0, 100},
+	Increment = 1,
+	CurrentValue = 0,
+	Flag = "ReloadTime",
+	Callback = function(Value)
+        reloadTime = Value
+        Rayfield:Notify({
+            Title = "Reload Time",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
 
+local dmgdropoff = Second:CreateSlider({
+	Name = "Damage Drop Off",
+	Range = {0, 100},
+	Increment = 1,
+	CurrentValue = 0,
+	Flag = "DamageDropOff",
+	Callback = function(Value)
+        damageDropOff = Value
+        Rayfield:Notify({
+            Title = "Damage Drop Off",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
 
---> [< View Model Offset >] <--
+local forceauto = Second:CreateToggle({
+    Name = "Force Auto",
+    CurrentValue = true,
+    Flag = "ForceAuto",
+    Callback = function(Value)
+        isAuto = Value
+        Rayfield:Notify({
+            Title = "Force Auto",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+    end
+})
+
+local rapidshotguns = Second:CreateToggle({
+    Name = "Rapid Shotguns",
+    CurrentValue = true,
+    Flag = "RapidShotguns",
+    Callback = function(Value)
+        delayedShell = not Value
+        Rayfield:Notify({
+            Title = "Rapid Shotguns",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+    end
+})
+
+--> 2nd Tab <--
+
+--> 3rd Tab <--
+
