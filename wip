@@ -1,0 +1,286 @@
+local forcereset = Main:CreateKeybind({
+	Name = "Force Reset",
+	CurrentKeybind = "T",
+	HoldToInteract = false,
+	Flag = "ForceReset",
+	Callback = function(Keybind)
+        if plr.Character then
+            plr.Character.Humanoid:TakeDamage(plr.Character.Humanoid.Health)
+            Rayfield:Notify({
+                Title = "Force Reset",
+                Content = "Done!",
+                Duration = 1,
+                Image = 4483362458,
+            })
+        end
+	end,
+})
+
+local gunmods = Main:CreateToggle({
+    Name = "Gun Mods Enabled",
+    CurrentValue = false,
+    Flag = "GunModsEnabled",
+    Callback = function(Value)
+        gmEnabled = Value
+        if Value then
+            Rayfield:Notify({
+                Title = "Gun Mod",
+                Content = "Reset to enable!",
+                Duration = 1,
+                Image = 4483362458,
+            })
+        else
+            Rayfield:Notify({
+                Title = "Gun Mod",
+                Content = "Reset to disable!",
+                Duration = 1,
+                Image = 4483362458,
+            })
+        end
+        while gmEnabled do
+            if plr.Character then
+                local folder = plr.Character:FindFirstChildWhichIsA("Tool")
+                
+                if folder and folder:FindFirstChild("Configuration") then
+                    for _, v in ipairs(folder.Configuration:GetChildren()) do
+                        if v.Name == "FireRate" and not e then
+                            e = true
+                            v.Value = v.Value * fireRate
+                        end
+                        if v.Name == "reloadTime" then
+                            v.Value = reloadTime
+                        end
+                        if v.Name == "DamageDropoff" then
+                            v.Value = damageDropOff
+                        end
+                        if v.Name == "isAuto" then
+                            v.Value = isAuto
+                        end
+                        if v.Name == "DelayedShell" then
+                            v.Value = delayedShell
+                        end
+                        if v.Name == "Recoil" then
+                            if recoilEnabled then
+                                v.Value = Recoil
+                            end
+                        end
+                    end
+                    if hitEffectEnabled then
+                        local heffect = folder.Configuration:FindFirstChild("HitEffect")
+                        if heffect then
+                            heffect.Value = hitEffect
+                        else
+                            heffect = Instance.new("StringValue")
+                            heffect.Name = "HitEffect"
+                            heffect.Value = hitEffect
+                            heffect.Parent = folder.Configuration
+                        end
+                    end
+                else
+                    e = false
+                end
+            end
+            wait()
+        end 
+    end
+})
+
+local firerate = Main:CreateSlider({
+	Name = "Fire Rate",
+	Range = {0, 1},
+	Increment = 0.1,
+	CurrentValue = 0.3,
+	Flag = "FireRate",
+	Callback = function(Value)
+        fireRate = Value
+        Rayfield:Notify({
+            Title = "Fire Rate",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
+
+local reloadtime = Main:CreateSlider({
+	Name = "Reload Time",
+	Range = {0, 100},
+	Increment = 1,
+	CurrentValue = 0,
+	Flag = "ReloadTime",
+	Callback = function(Value)
+        reloadTime = Value
+        Rayfield:Notify({
+            Title = "Reload Time",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
+
+local dmgdropoff = Main:CreateSlider({
+	Name = "Damage Drop Off",
+	Range = {0, 100},
+	Increment = 1,
+	CurrentValue = 0,
+	Flag = "DamageDropOff",
+	Callback = function(Value)
+        damageDropOff = Value
+        Rayfield:Notify({
+            Title = "Damage Drop Off",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
+
+local forceauto = Main:CreateToggle({
+    Name = "Force Auto",
+    CurrentValue = true,
+    Flag = "ForceAuto",
+    Callback = function(Value)
+        isAuto = Value
+        Rayfield:Notify({
+            Title = "Force Auto",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+    end
+})
+
+local rapidshotguns = Main:CreateToggle({
+    Name = "Rapid Shotguns",
+    CurrentValue = true,
+    Flag = "RapidShotguns",
+    Callback = function(Value)
+        delayedShell = not Value
+        Rayfield:Notify({
+            Title = "Rapid Shotguns",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+    end
+})
+
+local recoilmodifier = Main:CreateToggle({
+    Name = "Recoil Modifier",
+    CurrentValue = false,
+    Flag = "RecoilModifier",
+    Callback = function(Value)
+        recoilEnabled = Value
+        if Value then
+            Rayfield:Notify({
+                Title = "Recoil Modifier",
+                Content = "Reset to enable!",
+                Duration = 1,
+                Image = 4483362458,
+            })
+        else
+            Rayfield:Notify({
+                Title = "Recoil Modifier",
+                Content = "Reset to disable!",
+                Duration = 1,
+                Image = 4483362458,
+            })
+        end
+    end
+})
+
+local recoilx = Main:CreateSlider({
+	Name = "Recoil X",
+	Range = {0, 100},
+	Increment = 1,
+	CurrentValue = 0,
+	Flag = "RecoilX",
+	Callback = function(Value)
+        Recoil = Vector3.new(Value, Recoil.Y, Recoil.Z)
+        Rayfield:Notify({
+            Title = "Recoil X",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
+
+local recoily = Main:CreateSlider({
+	Name = "Recoil Y",
+	Range = {0, 100},
+	Increment = 1,
+	CurrentValue = 0,
+	Flag = "RecoilY",
+	Callback = function(Value)
+        Recoil = Vector3.new(Recoil.X, Value, Recoil.Z)
+        Rayfield:Notify({
+            Title = "Recoil Y",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
+
+local recoilz = Main:CreateSlider({
+	Name = "Recoil Z",
+	Range = {0, 100},
+	Increment = 1,
+	CurrentValue = 0,
+	Flag = "RecoilZ",
+	Callback = function(Value)
+        Recoil = Vector3.new(Recoil.X, Recoil.Y, Value)
+        Rayfield:Notify({
+            Title = "Recoil Z",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
+
+local hiteffectE = Main:CreateToggle({
+    Name = "Hit Effect [FE]",
+    CurrentValue = false,
+    Flag = "HitEffectEnabled",
+    Callback = function(Value)
+        hitEffectEnabled = Value
+        if Value then
+            Rayfield:Notify({
+                Title = "Hit Effect",
+                Content = "Reset to enable!",
+                Duration = 1,
+                Image = 4483362458,
+            })
+        else
+            Rayfield:Notify({
+                Title = "Hit Effect",
+                Content = "Reset to disable!",
+                Duration = 1,
+                Image = 4483362458,
+            })
+        end
+    end
+})
+
+local hiteffect = Main:CreateDropdown({
+	Name = "Select Hit Effect",
+	Options = {"Gib_W", "Gib_G", "Gib_H", "Gib_T", "Gib_F"},
+	CurrentOption = "Gib_F",
+	Flag = "HitEffect",
+	Callback = function(Option)
+        if type(Option) == "table" then
+            hitEffect = Option[1]
+        else
+            hitEffect = Option
+        end
+        Rayfield:Notify({
+            Title = "Hit Effect",
+            Content = "Reset to update!",
+            Duration = 1,
+            Image = 4483362458,
+        })
+	end,
+})
