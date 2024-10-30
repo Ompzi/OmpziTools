@@ -26,6 +26,8 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
+local Main = Window:CreateTab("Gun Mods 🔫")
+
 local MainTab = Window:CreateTab("Home", nil) -- Title, Image
 local MainSection = MainTab:CreateSection("Main")
 
