@@ -1,0 +1,80 @@
+-- Hi don't look at the code it is trash just use it :)
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local RunService = game:GetService("RunService")
+local players = game:GetService("Players")
+local workspace = game:GetService("Workspace")
+local plr = players.LocalPlayer
+local camera = workspace.CurrentCamera
+local mouse = plr:GetMouse()
+
+--> [< Variables >] <--
+
+local hue = 0
+local rainbowFov = false
+local rainbowSpeed = 0.005
+
+local aimFov = 100
+local aiming = false
+local predictionStrength = 0.065
+
+local gmEnabled = false
+
+local fireRate = 0.3
+local pelletAmount = 1
+local reloadTime = 0
+local damageDropOff = 0
+local isAuto = true
+local delayedShell = false
+local recoilEnabled = false
+local Recoil = Vector3.new(0, 0, 0)
+local viewmodelEnabled = false
+local viewModelOffset = Vector3.new(0.1, -1.7, 0)
+
+local hitEffectEnabled = false
+local aimbotEnabled = false
+
+local hitEffect = "Gib_F"
+
+local e = false
+
+--> [< Variables >] <--
+
+local Window = Rayfield:CreateWindow({
+	Name = "▶ Gun Grounds FFA ◀",
+	LoadingTitle = "Loading...",
+	LoadingSubtitle = "by Agreed 🥵",
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = "GunGroundsFFA",
+		FileName = "byAgreed"
+	},
+})
+
+local Main = Window:CreateTab("Main")
+local Aimbot = Window:CreateTab("FFA")
+local ViewModel = Window:CreateTab("WIP")
+
+--> [< Gun Mods >] <--
+
+local Main = Main:CreateToggle({
+    Name = "Main Name Here",
+    CurrentValue = false,
+    Flag = "Flag Test Here",
+    Callback = function(Value)
+        gmEnabled = Value
+        if Value then
+            Rayfield:Notify({
+                Title = "Title Test",
+                Content = Content Test",
+                Duration = 1,
+                Image = 4483362458,
+        })
+	end,
+})
+
+--> [< Aimbot >] <--
+
+
+--> [< View Model Offset >] <--
