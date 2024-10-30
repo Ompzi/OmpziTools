@@ -26,8 +26,6 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local Main = Window:CreateTab("Gun Mods 🔫")
-
 local MainTab = Window:CreateTab("Home", nil) -- Title, Image
 local MainSection = MainTab:CreateSection("Main")
 
@@ -87,5 +85,16 @@ local Slider = MainTab:CreateSlider({
         game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
    end,
 })
+
+local FFA = Window:CreateTab("▶ Gun Grounds FFA ◀")
+
+local Button = FFATab:CreateToggle({
+   Name = "Testing Name",
+   Callback = function()
+
+
+
+
+
 
 local Button1 = TP
