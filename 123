@@ -14,8 +14,8 @@ local mouse = plr:GetMouse()
 
 local Window = Rayfield:CreateWindow({
 	Name = "▶ OmpziTools Hub ◀",
-	LoadingTitle = "Loading.  .  .  .  .",
-	LoadingSubtitle = "DONT GET BANNED",
+	LoadingTitle = "Made By OmpziTools",
+	LoadingSubtitle = "Loading  .  .  .  .  .",
 	ConfigurationSaving = {
 		Enabled = true,
 		FolderName = "OmpziHub",
@@ -28,6 +28,7 @@ local Window = Rayfield:CreateWindow({
 local First = Window:CreateTab("1")
 local Second = Window:CreateTab("FFA")
 local Third = Window:CreateTab("3")
+local Fourth = Window:CreateTab("LT2")
 
 --> Tab Maker <--
 
@@ -263,3 +264,14 @@ local rapidshotguns = Second:CreateToggle({
 
 --> 3rd Tab <--
 
+--> 4th Tab <--
+
+local lt2test = Fourth:CreateButton({
+    Name = LT2 WIP
+    CurrentValue = true,
+    Flag = "WIP",
+    Callback = function(Value)
+
+        })
+    end
+})
