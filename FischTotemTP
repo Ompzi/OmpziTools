@@ -1,0 +1,124 @@
+local locations = {
+    Sundial = Vector3.new(-1148, 135, -1075),
+    Aurora = Vector3.new(-1811, -137, -3282),
+    Windset = Vector3.new(2849, 178, 2702),
+    Smokescreen = Vector3.new(2789, 140, -625),
+    Tempest = Vector3.new(35, 133, 1943)
+}
+
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui", player.PlayerGui)
+
+local dropdownFrame = Instance.new("Frame", screenGui)
+dropdownFrame.Size = UDim2.new(0, 220, 0, 200)
+dropdownFrame.Position = UDim2.new(0.5, -110, 0.5, -100)
+dropdownFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+dropdownFrame.BorderSizePixel = 0
+dropdownFrame.Visible = false -- Start closed
+
+local toggleButton = Instance.new("TextButton", screenGui)
+toggleButton.Size = UDim2.new(0, 50, 0, 30) -- Smaller size
+toggleButton.Position = UDim2.new(0.5, -25, 0.5, -15) -- Centered position
+toggleButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleButton.Text = "Open"
+toggleButton.TextScaled = true
+toggleButton.BorderSizePixel = 0
+
+local isDragging = false
+local dragStart
+local startPos
+
+local function beginDrag(input, target)
+    isDragging = true
+    dragStart = input.Position
+    startPos = target.Position
+end
+
+local function updateDrag(input, target)
+    if isDragging then
+        local delta = input.Position - dragStart
+        target.Position = UDim2.new(
+            startPos.X.Scale,
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
+        )
+    end
+end
+
+local function endDrag(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        isDragging = false
+    end
+end
+
+dropdownFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        beginDrag(input, dropdownFrame)
+    end
+end)
+
+dropdownFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement then
+        updateDrag(input, dropdownFrame)
+    end
+end)
+
+dropdownFrame.InputEnded:Connect(function(input)
+    endDrag(input)
+end)
+
+toggleButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        beginDrag(input, toggleButton)
+    end
+end)
+
+toggleButton.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement then
+        updateDrag(input, toggleButton)
+    end
+end)
+
+toggleButton.InputEnded:Connect(function(input)
+    endDrag(input)
+end)
+
+local titleLabel = Instance.new("TextLabel", dropdownFrame)
+titleLabel.Text = "Totem TP OMG"
+titleLabel.Size = UDim2.new(1, 0, 0, 30)
+titleLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextScaled = true
+titleLabel.BorderSizePixel = 0
+
+for name, position in pairs(locations) do
+    local button = Instance.new("TextButton", dropdownFrame)
+    button.Size = UDim2.new(1, -10, 0, 28)
+    button.Position = UDim2.new(0, 5, 0, 30 + (30 * (#dropdownFrame:GetChildren() - 2)))
+    button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Text = name
+    button.TextScaled = true
+    button.BorderSizePixel = 0
+
+    button.MouseEnter:Connect(function()
+        button.BackgroundColor3 = Color3.fromRGB(85, 85, 85)
+    end)
+
+    button.MouseLeave:Connect(function()
+        button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    end)
+
+    button.MouseButton1Click:Connect(function()
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(position)
+    end)
+end
+
+toggleButton.MouseButton1Click:Connect(function()
+    dropdownFrame.Visible = not dropdownFrame.Visible
+    toggleButton.Text = dropdownFrame.Visible and "Close" or "Open"
+end)
