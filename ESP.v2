@@ -1,0 +1,55 @@
+local Players = game:GetService("Players")
+
+-- Function to highlight a player
+local function highlightPlayer(player)
+    -- Function to create highlights for the character
+    local function createHighlight(character)
+        if character then
+            wait(0.1) -- Wait for character to fully load
+            
+            -- Create the Highlight
+            local highlight = Instance.new("Highlight")
+            highlight.Parent = character
+            highlight.OutlineColor = Color3.new(0, 0, 0) -- Black outline
+            highlight.Adornee = character
+
+            -- Create a BillboardGui
+            local billboardGui = Instance.new("BillboardGui")
+            billboardGui.Adornee = character:FindFirstChild("Head")
+            billboardGui.Size = UDim2.new(0, 100, 0, 30) -- Size of the BillboardGui
+            billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Position above the head
+            billboardGui.Parent = character:FindFirstChild("Head")
+
+            -- Smooth rainbow highlighting effect
+            local function smoothRainbowHighlight()
+                while highlight do
+                    for i = 0, 1, 0.01 do
+                        local r = math.abs(math.sin(i * math.pi * 2)) -- Red channel
+                        local g = math.abs(math.sin((i + 1/3) * math.pi * 2)) -- Green channel
+                        local b = math.abs(math.sin((i + 2/3) * math.pi * 2)) -- Blue channel
+                        highlight.FillColor = Color3.new(r, g, b)
+                        wait(0.05) -- Adjust for speed of transition
+                    end
+                end
+            end
+
+            coroutine.wrap(smoothRainbowHighlight)() -- Start the smooth rainbow effect
+        end
+    end
+
+    -- Connect to CharacterAdded event
+    player.CharacterAdded:Connect(createHighlight)
+
+    -- Check if the player's character exists and is alive
+    if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0 then
+        createHighlight(player.Character) -- Highlight the existing character
+    end
+end
+
+-- Highlight all players currently in the game
+for _, player in ipairs(Players:GetPlayers()) do
+    highlightPlayer(player)
+end
+
+-- Connect to PlayerAdded event to highlight new players
+Players.PlayerAdded:Connect(highlightPlayer)
