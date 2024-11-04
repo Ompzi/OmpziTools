@@ -1,0 +1,21 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Function to set X-ray effect for the map
+local function applyXRayEffect()
+    for _, part in pairs(workspace:GetDescendants()) do
+        if part:IsA("BasePart") and part.CanCollide and not part:IsDescendantOf(character) then
+            part.Transparency = 0.5 -- Set transparency for X-ray effect
+        end
+    end
+end
+
+-- Apply the X-ray effect when the player joins
+applyXRayEffect()
+
+-- Optional: Reset transparency when character respawns
+character.AncestryChanged:Connect(function(_, newParent)
+    if not newParent then
+        applyXRayEffect() -- Reapply X-ray effect on respawn
+    end
+end)
