@@ -1,0 +1,43 @@
+local A=game:GetService("Players")
+local B=function(C)
+    local D=function(E)
+        if E then
+            wait(0.1)
+            local F=Instance.new("Highlight")
+            F.Parent=E
+            F.OutlineColor=Color3.new(0,0,0)
+            F.Adornee=E
+
+            local G=Instance.new("BillboardGui")
+            G.Adornee=E:FindFirstChild("Head")
+            G.Size=UDim2.new(0,100,0,30)
+            G.StudsOffset=Vector3.new(0,2,0)
+            G.Parent=E:FindFirstChild("Head")
+
+            local H=function()
+                while F do
+                    for I=0,1,0.01 do
+                        local J=math.abs(math.sin(I*math.pi*2))
+                        local K=math.abs(math.sin((I+1/3)*math.pi*2))
+                        local L=math.abs(math.sin((I+2/3)*math.pi*2))
+                        F.FillColor=Color3.new(J,K,L)
+                        wait(0.05)
+                    end
+                end
+            end
+            coroutine.wrap(H)()
+        end
+    end
+
+    C.CharacterAdded:Connect(D)
+
+    if C.Character and C.Character:FindFirstChild("Humanoid") and C.Character.Humanoid.Health>0 then
+        D(C.Character)
+    end
+end
+
+for _,M in ipairs(A:GetPlayers()) do
+    B(M)
+end
+
+A.PlayerAdded:Connect(B)
